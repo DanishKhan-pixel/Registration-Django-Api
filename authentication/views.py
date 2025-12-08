@@ -73,14 +73,9 @@ class LoginView(ViewSet):
                 print("Authentication failed.")
                 return Exception_Response_400("Invalid credentials.")
 
-            # Check if user has an organization and if it's active
-            profile = Profile.objects.filter(user_id=user.id).first()
-            if profile and profile.organization:
-                if not profile.organization.status:
-                    return Exception_Response_400("Your organization is currently inactive. Please contact your administrator.")
+
 
             role = user.role.name if user.role else None
-            organization_id = profile.organization.id if profile and profile.organization else None
 
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
@@ -103,7 +98,7 @@ class LoginView(ViewSet):
                 "is_superuser": user.is_superuser,
                 "token_type": "bearer",
                 "role": role,
-                "organization": organization_id,
+
             }
             return True_Response_200(message="Login successfully", data=response)
         except Exception as e:
@@ -137,12 +132,11 @@ class ProfileView(ViewSet):
             # Fetch additional details separately (not in serializer)
             permissions = list(user.role.permissions.values("id", "name", "codename", "model")) if user.role else []
             # role = user.role.name if user.role else None
-            organization = Profile.objects.filter(user=user).first()
-            organization_id = organization.organization.id if organization and organization.organization else None
+
 
             # Construct the response manually
             response_data = serializer.data
-            response_data["organization"] = organization_id
+            # response_data["organization"] = organization_id
             response_data["permissions"] = permissions
             # response_data["role"] = role
 

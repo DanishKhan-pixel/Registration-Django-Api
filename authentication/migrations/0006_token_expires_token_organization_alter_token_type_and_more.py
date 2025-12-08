@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('authentication', '0005_remove_user_contact_profile_contact'),
-        ('organization', '0001_initial'),
+
     ]
 
     operations = [
@@ -18,11 +18,7 @@ class Migration(migrations.Migration):
             name='expires',
             field=models.DateTimeField(blank=True, null=True),
         ),
-        migrations.AddField(
-            model_name='token',
-            name='organization',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='organization.organization'),
-        ),
+
         migrations.AlterField(
             model_name='token',
             name='type',

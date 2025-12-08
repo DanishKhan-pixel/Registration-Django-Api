@@ -38,7 +38,7 @@ class PermissionView(ViewSet):
 
     @extend_schema(
         summary="List permissions",
-        description="List all permissions. If the URL contains 'organizations', only permissions for ['camera', 'site', 'user'] are returned.",
+        description="List all permissions.",
         tags=["Permissions"],
         responses={
             200: OpenApiResponse(response=PermissionListResponseSerializer, description="Permissions retrieved successfully"),
@@ -49,20 +49,16 @@ class PermissionView(ViewSet):
     def list(self, request, *args, **kwargs):
         try:
             # Check if URL contains 'organizations'
-            url_path = request.path
-            is_organization_path = 'organizations' in url_path
+            # url_path = request.path
+            # is_organization_path = 'organizations' in url_path
             
-            # Define allowed models for organization-specific permissions
-            allowed_models = ['camera', 'site', 'user']
-            
-            if is_organization_path:
-                # Filter permissions for specific models when URL contains 'organizations'
-                permissions = self.queryset.filter(
-                    model__in=allowed_models
-                )
-            else:
-                # Return all permissions if URL doesn't contain 'organizations'
-                permissions = self.queryset
+            # permitted_permissions = self.queryset
+            # if is_organization_path:
+            #     # Filter permissions for specific models when URL contains 'organizations'
+            #     # permitted_permissions = self.queryset.filter(model__in=['camera', 'site', 'user'])
+            #     pass
+
+            permissions = self.queryset
 
             serializer = self.serializer_class(permissions, many=True)
             return True_Response_200("Permissions retrieved successfully", serializer.data)
@@ -79,7 +75,7 @@ class PermissionView(ViewSet):
     list=extend_schema(
         tags=["Roles"],
         summary="List roles",
-        description="List roles with optional search, sort, and organization filters. Returns only global roles when organization is not provided.",
+        description="List roles with optional search and sort.",
     ),
     retrieve=extend_schema(
         tags=["Roles"],
@@ -140,10 +136,10 @@ class RoleView(ViewSet):
 
     @extend_schema(
         summary="List roles",
-        description="List roles with optional search, sort, and organization filters. Returns only global roles when organization is not provided.",
+        description="List roles with optional search and sort.",
         tags=["Roles"],
         parameters=[
-            OpenApiParameter(name="organization", type=OpenApiTypes.INT, location=OpenApiParameter.QUERY, required=False, description="Organization ID"),
+
             OpenApiParameter(name="search", type=OpenApiTypes.STR, location=OpenApiParameter.QUERY, required=False, description="Search by name"),
             OpenApiParameter(name="sort", type=OpenApiTypes.STR, location=OpenApiParameter.QUERY, required=False, description="Sort by name"),
         ],
@@ -159,10 +155,9 @@ class RoleView(ViewSet):
             search = request.query_params.get("search")
             sort = request.query_params.get("sort") 
             
-            organization = request.query_params.get("organization")
             data = dynamic_filter(self.model, search_fields=["name"], search_query=search, sort_by=sort, **filters)
-            if not organization:
-                data = data.filter(organization=None)
+            # if not organization:
+            #     data = data.filter(organization=None)
             if not data.exists():
                 return True_Response_200("No data found", [])
 
@@ -281,11 +276,10 @@ class RoleView(ViewSet):
             filters = request.query_params.dict()
             search = request.query_params.get("search")
             sort = request.query_params.get("sort")
-            organization = request.query_params.get("organization")
             data = dynamic_filter(self.model, search_fields=["name"], search_query=search,
                                   sort_by=sort, is_trash=True, **filters)
-            if not organization:
-                data = data.filter(organization=None)
+            # if not organization:
+            #     data = data.filter(organization=None)
 
             if not data.exists():
                 return True_Response_200("No data found", [])
