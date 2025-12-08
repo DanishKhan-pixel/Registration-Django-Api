@@ -61,3 +61,4 @@ class BaseUserMixin:
             return user_serializer.data
         except Exception as e:
             return Except_Exception_Response_400(e)
+

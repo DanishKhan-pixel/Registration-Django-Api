@@ -323,5 +323,5 @@ EMAIL_USE_TLS = True
 
 
 BASE_URL = os.environ.get("BASE_URL")
-SUBSCRIPTION_BASE_URL = os.environ.get("SUBSCRIPTION_BASE_URL")
+
 ML_BASE_URL = os.environ.get("ML_BASE_URL")
