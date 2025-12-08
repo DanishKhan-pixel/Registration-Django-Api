@@ -174,8 +174,8 @@ SIMPLE_JWT = {
 # Spectacular settings
 # https://drf-spectacular.readthedocs.io/en/latest/settings.html
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Pulsse Authentication API',
-    'DESCRIPTION': 'This API is used to manage the authentication of the Pulsse platform.',
+    'TITLE': 'Authentication API',
+    'DESCRIPTION': 'This API is used to manage the authentication  of user.',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     'SERVE_PERMISSIONS': ['rest_framework.permissions.AllowAny'],
