@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 
 
 class BaseUserMixin:
-
+    
     """
     Mixin to handle user creation and update logic.
     """

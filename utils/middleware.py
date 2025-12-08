@@ -29,7 +29,7 @@ class ModifyHTMLMiddleware(MiddlewareMixin):
 
             if "Django administration" in content:
                 content = content.replace(
-                    "Django administration", os.environ.get("MICROSERVICE_NAME", "Authentication")
+                    "Django administration", os.environ.get("MICROSERVICE_NAME", "Pulsse")
                 )
 
             response.content = content.encode("utf-8")  # Convert back to bytes
