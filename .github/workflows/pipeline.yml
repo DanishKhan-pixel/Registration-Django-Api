@@ -1,0 +1,40 @@
+name: CI/CD Staging
+
+on:
+  push:
+    branches: ["staging-new"]
+  pull_request:
+    branches: ["staging-new"]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout staging branch
+        uses: actions/checkout@v4
+        with:
+          ref: staging-new
+
+      - name: Copy files to server
+        uses: appleboy/scp-action@v0.1.5
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ubuntu
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          source: "./"
+          target: "/home/ubuntu/pulsse-authentication"
+
+      - name: SSH and deploy with Docker Compose
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ubuntu
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            cd /home/ubuntu/pulsse-authentication/
+            docker compose down || true
+            docker compose up -d --build

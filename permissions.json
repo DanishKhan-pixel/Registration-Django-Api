@@ -1,0 +1,10 @@
+{
+  "login_history": ["read", "list"],
+  "user": ["create", "read", "update", "delete", "list", "trash", "restore"],
+  "role": ["create", "read", "update", "delete", "list", "trash", "restore"],
+  "organization": ["create", "read", "update", "delete", "list", "trash", "restore"],
+  "site": ["create", "read", "update", "delete", "list", "trash", "restore"],
+  "camera": ["create", "read", "update", "delete", "list", "trash", "restore"],
+  "plan": ["create", "read", "update", "delete", "list", "trash", "restore"],
+  "subscription": ["create", "read", "list"]
+}
