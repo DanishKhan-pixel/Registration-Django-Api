@@ -38,7 +38,7 @@ urlpatterns = [
    path(f'{API_VERSION}/roles', include('role.urls')),
    path(f'{API_VERSION}/organizations/external', include('organization.external_apis_urls')),
    path(f'{API_VERSION}/organizations', include('organization.urls')),
-   path(f'{API_VERSION}/dashboard/', include('dashboard.urls')),
+   # path(f'{API_VERSION}/dashboard/', include('dashboard.urls')),
    *api_docs_urls,
 ]
 
