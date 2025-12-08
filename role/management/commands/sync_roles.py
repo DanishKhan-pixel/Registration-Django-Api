@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from role.models import Role, Permission
-from utils.permissions import SUPERUSER_PERMISSIONS
+from utils.permissions import ORG_ALLOWED_PERMISSIONS, SUPERUSER_PERMISSIONS
 
 # Excluded permissions for Organization Admin
 
@@ -30,5 +30,24 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS("✅ Super Admin role synced."))
 
+        # Ensure Organization Admin role exists
+        org_admin, _ = Role.objects.get_or_create(name="Organization Admin", defaults={"description": "Manage organization settings"})
 
+        # Allowed permissions (excluding restricted ones)
+        allowed_permissions = ORG_ALLOWED_PERMISSIONS
+        current_org_admin_permissions = set(org_admin.permissions.values_list("codename", flat=True))
+
+        # Add missing permissions to Organization Admin
+        new_org_permissions = allowed_permissions - current_org_admin_permissions
+        if new_org_permissions:
+            org_admin.permissions.add(*Permission.objects.filter(codename__in=new_org_permissions))
+            self.stdout.write(self.style.SUCCESS(f"✔ Added {len(new_org_permissions)} permissions to Organization Admin"))
+
+        # Remove extra permissions from Organization Admin
+        extra_org_permissions = current_org_admin_permissions - allowed_permissions
+        if extra_org_permissions:
+            org_admin.permissions.remove(*Permission.objects.filter(codename__in=extra_org_permissions))
+            self.stdout.write(self.style.WARNING(f"❌ Removed {len(extra_org_permissions)} stale permissions from Organization Admin"))
+
+        self.stdout.write(self.style.SUCCESS("✅ Organization Admin role synced."))
         self.stdout.write(self.style.SUCCESS("🎉 Role synchronization completed!"))

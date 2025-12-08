@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('authentication', '0002_initial'),
-
+        ('organization', '0001_initial'),
     ]
 
     operations = [
@@ -16,5 +16,9 @@ class Migration(migrations.Migration):
             model_name='profile',
             name='organization_id',
         ),
-
+        migrations.AddField(
+            model_name='profile',
+            name='organization',
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='organization.organization'),
+        ),
     ]

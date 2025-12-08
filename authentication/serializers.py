@@ -14,6 +14,7 @@ import re
 class UserSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(write_only=True, required=False)
     password = serializers.CharField(write_only=True, required=False)
+    organization = serializers.SerializerMethodField()
     role_name = serializers.SerializerMethodField()
 
     class Meta:
@@ -128,8 +129,14 @@ class UserSerializer(serializers.ModelSerializer):
 
         return user
 
+    def get_organization(self, obj):
+        """Return organization ID from Profile"""
+        profile = Profile.objects.filter(user=obj).first()
+        return profile.organization.id if profile and profile.organization else None
+
     def get_role_name(self, obj):
         return obj.role.name if obj.role else None
+
     def to_representation(self, instance):
         data = super().to_representation(instance)
 
@@ -184,7 +191,7 @@ class LoginSerializer(serializers.Serializer):
     is_superuser = serializers.BooleanField(read_only=True)
     token_type = serializers.CharField(read_only=True)
     role = serializers.CharField(allow_blank=True, allow_null=True, required=False, read_only=True)
-
+    organization = serializers.IntegerField(allow_null=True, required=False, read_only=True)
 
 class LoginRequestSerializer(serializers.Serializer):
     identifier = serializers.CharField(write_only=True)

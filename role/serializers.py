@@ -16,13 +16,14 @@ class RoleSerializer(serializers.ModelSerializer):
     )
     permissions_list = PermissionSerializer(source='permissions', many=True, read_only=True)
     total_permissions = serializers.SerializerMethodField()
-
+    organization_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Role
         exclude = EXCLUDED_FIELDS
 
-
+    def get_organization_name(self, obj):
+        return obj.organization.name if obj.organization else None
 
     def get_total_permissions(self, obj):
         return obj.permissions.count()

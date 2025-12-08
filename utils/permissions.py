@@ -3,7 +3,14 @@ from utils.custom_response import Exception_Response_400
 from functools import wraps
 from rest_framework import status
 
-
+ORG_ALLOWED_PERMISSIONS = {
+    "user::Create", "user::Read", "user::Update", "user::Delete", "user::List", "user::Trash", "user::Restore",
+    "role::Create", "role::Read", "role::Update", "role::Delete", "role::List", "role::Trash", "role::Restore",
+    "organization::Read", "organization::Update",
+    "site::Create", "site::Read", "site::Update", "site::Delete", "site::List", "site::Trash", "site::Restore",
+    "camera::Create", "camera::Read", "camera::Update", "camera::Delete", "camera::List", "camera::Trash", "camera::Restore",
+    "subscription::Create", "subscription::Read", "subscription::List"
+}
 
 # Host Permissions
 HOST_PERMISSIONS = {
@@ -19,7 +26,8 @@ NON_HOST_PERMISSIONS = {
 
 # Superuser Permissions - All permissions except site, camera, and user permissions
 SUPERUSER_PERMISSIONS = {
-
+    # Organization permissions
+    "organization::Create", "organization::Read", "organization::Update", "organization::Delete", "organization::List", "organization::Trash", "organization::Restore",
     
     # Role permissions
     "role::Create", "role::Read", "role::Update", "role::Delete", "role::List", "role::Trash", "role::Restore",

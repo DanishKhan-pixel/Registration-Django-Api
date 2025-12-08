@@ -6,8 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('organization', '0003_alter_organization_country'),
         ('role', '0003_permission_created_at_permission_deleted_at_and_more'),
     ]
 
     operations = [
+        migrations.AddConstraint(
+            model_name='role',
+            constraint=models.UniqueConstraint(fields=('organization', 'name'), name='unique_role_organization'),
+        ),
     ]

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
+from organization.models import Organization
 from role.models import Role
 from utils.models import BaseModel
 from .choices import GENDER_CHOICES, TYPE_CHOICES, TOKEN_TYPE_CHOICES, MEDIA_TYPES_CHOICES
@@ -59,7 +60,7 @@ class Media(BaseModel):
 
 class Profile(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         db_table = 'user_profiles'
@@ -70,7 +71,7 @@ class Profile(BaseModel):
 
 class Token(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, null=True, blank=True)
     type = models.CharField(choices=TOKEN_TYPE_CHOICES, max_length=100, null=True, blank=True)
     code = models.CharField(max_length=100, null=True, blank=True, unique=True)
     expires = models.DateTimeField(null=True, blank=True)
