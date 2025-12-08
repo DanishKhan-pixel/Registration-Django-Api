@@ -39,10 +39,11 @@ HARD_DELETE_OLD_DATA_DAYS = int(os.environ.get("HARD_DELETE_OLD_DATA_DAYS", 60))
 # Application definition
 CUSTOM_APPS = [
     'authentication',
-    'role',
-    'organization',
-    'dashboard',
-]
+    'role'
+    
+    
+    ]
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -305,11 +306,7 @@ LOGGING = {
             'level': 'INFO',
             'propagate': True,
         },
-        'organization': {
-            'handlers': ['console', 'file'],
-            'level': 'INFO',
-            'propagate': True,
-        },
+
     },
 }
 

@@ -39,19 +39,19 @@ class MediaAdmin(admin.ModelAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'organization', 'status', 'is_deleted', 'created_at', 
+    list_display = ('id', 'user', 'status', 'is_deleted', 'created_at', 
                    'updated_at')
-    list_filter = ('organization', 'status', 'is_deleted', 'created_at')
-    search_fields = ('user__username', 'user__email', 'organization__name')
+    list_filter = ('status', 'is_deleted', 'created_at')
+    search_fields = ('user__username', 'user__email')
     date_hierarchy = 'created_at'
     readonly_fields = ('created_at', 'updated_at', 'deleted_at')
 
 @admin.register(Token)
 class TokenAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'organization', 'type', 'code', 'expires', 'status', 
+    list_display = ('id', 'user', 'type', 'code', 'expires', 'status', 
                    'is_deleted', 'created_at', 'updated_at')
     list_filter = ('type', 'status', 'is_deleted', 'created_at', 'expires')
-    search_fields = ('user__username', 'user__email', 'organization__name', 'code', 'type')
+    search_fields = ('user__username', 'user__email', 'code', 'type')
     date_hierarchy = 'created_at'
     readonly_fields = ('created_at', 'updated_at', 'deleted_at')
 
