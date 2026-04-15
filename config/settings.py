@@ -190,7 +190,7 @@ SPECTACULAR_SETTINGS = {
     'SWAGGER_UI_FAVICON_HREF': '/static/img/pulsse.png',
     'SERVERS': [
         {
-            'url': os.environ.get('APP_URL', 'http://localhost:8001'),
+            'url': os.environ.get('APP_URL', 'http://localhost:8000'),
             'description': 'Local Server',
         },
         {
@@ -199,8 +199,6 @@ SPECTACULAR_SETTINGS = {
         },
     ],
 }
-
-
 
 
 
