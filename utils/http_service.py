@@ -29,7 +29,6 @@ def update_ezviz_config(ezv_key, ezv_secret):
     """
     Update EZVIZ configuration in ML service
     """
-    print("ML API CALLED....................................")
     try:
         url = f"{settings.ML_BASE_URL}dashboard/config/ezviz/update"
         payload = {
