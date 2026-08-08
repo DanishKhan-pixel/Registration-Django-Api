@@ -9,7 +9,9 @@ urlpatterns = [
         'get': 'list', 
         'post': 'create',
         'delete': 'destroy',
-        'patch': 'status_update'
+        'patch': 'status_update',
+        'post': 'login_history',
+        'get': 'login_history'
     })),
     path('/<int:id>', RoleView.as_view({'get': 'retrieve', 'patch': 'update'})),
     path('/trash', RoleView.as_view({'get': 'trash'})),
