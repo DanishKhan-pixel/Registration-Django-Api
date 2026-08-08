@@ -1,11 +1,5 @@
 # Django Project Setup on Ubuntu
 
-## Prerequisites
-Ensure you have the following installed on your Ubuntu system:
-- Python (3.8 or higher)
-- pip (Python package manager)
-- virtualenv
-- Git
 
 ## Step 1: Clone the Repository
 ```bash
