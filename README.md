@@ -51,5 +51,3 @@ python manage.py collectstatic --noinput
 - If you get permission errors, try `sudo chmod +x manage.py`
 - If dependencies fail to install, ensure `pip` is up to date: `pip install --upgrade pip`
   
----
-Your Django project is now set up and running on Ubuntu! 🚀
