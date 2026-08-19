@@ -40,8 +40,3 @@ The server should now be running at `http://127.0.0.1:8000/`
 ```bash
 python manage.py collectstatic --noinput
 ```
-
-## Troubleshooting
-- If you get permission errors, try `sudo chmod +x manage.py`
-- If dependencies fail to install, ensure `pip` is up to date: `pip install --upgrade pip`
-  
