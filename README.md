@@ -1,5 +1,3 @@
-# Django Project Setup on Ubuntu
-
 
 ## Step 1: Clone the Repository
 ```bash
